@@ -67,7 +67,7 @@ sub is_file_tidy {
 
     # If there were perltidy errors report them and return.
     $stderr_fh->seek( 0, 0 );
-    my $stderr = read_file($stderr_fh);
+    my $stderr = read_file( $stderr_fh, { binmode => ':utf8' } );
     if ($stderr) {
         unless ($MUTE) {
             $test->diag("perltidy reported the following errors:\n");
@@ -167,7 +167,7 @@ sub load_file {
     return unless -f $filename;
 
     # Slurp the file.
-    my $content = read_file($filename);
+    my $content = read_file( $filename, { binmode => ':utf8' } );
     return $content;
 }
 
